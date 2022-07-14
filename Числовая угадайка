@@ -1,9 +1,9 @@
-import random
-num = random.randint(1, 100)
 print("Добро пожаловать в числовую угадайку")
 
+import random
+num = random.randint(1, 100)
 
-def zachita(chislo):
+def zaschita(chislo):
     intn = int(float(chislo))
     floatn = float(chislo)
     if intn / floatn == 1.0 and 1 <= intn <= 100:
@@ -15,7 +15,7 @@ def zachita(chislo):
 mark = False
 while mark != True:
     n = input()
-    if zachita(n) == False:
+    if zaschita(n) == False:
         print('А может быть все-таки введем целое число от 1 до 100?')
         break
     else:
