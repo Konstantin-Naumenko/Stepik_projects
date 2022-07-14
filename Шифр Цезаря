@@ -1,0 +1,31 @@
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+rus_upper_alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+symbol = [" ", ",", ".", "!", "?"]
+
+print("Напишите направление сдвига шифра (вперед - 'в', назад - 'н')")
+direction = input()
+
+print("Напишите язык текста (русский - 'ру', английский - 'en')")
+language = input()
+if language == "en":
+    mosch = 26
+elif language == "ру":
+    mosch = 32
+    
+print("Укажите шаг сдвига")
+step = int(input())
+if direction == 'н':
+    step = -step
+    
+print("Введите текст для шифрования/дешифрования")
+text = input()
+
+spisok = []
+for i in range(len(text)):
+    if mosch == 32:
+        spisok.append(rus_lower_alphabet[(i + step) % mosch])
+    elif mosch == 26:
+        spisok.append(eng_lower_alphabet[(i + step) % mosch])
+print(*spisok, sep='')
