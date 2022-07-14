@@ -1,0 +1,31 @@
+import random
+num = random.randint(1, 100)
+print("Добро пожаловать в числовую угадайку")
+
+
+def zachita(chislo):
+    intn = int(float(chislo))
+    floatn = float(chislo)
+    if intn / floatn == 1.0 and 1 <= intn <= 100:
+        return True
+    else:
+        return False
+        
+
+mark = False
+while mark != True:
+    n = input()
+    if zachita(n) == False:
+        print('А может быть все-таки введем целое число от 1 до 100?')
+        break
+    else:
+        n = int(n)
+    if n < num:
+        print('Ваше число меньше загаданного, попробуйте еще разок')
+    elif n > num:
+            print('Ваше число больше загаданного, попробуйте еще разок')
+    elif n == num:
+            print('Вы угадали, поздравляем!')
+            mark = True
+
+print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
