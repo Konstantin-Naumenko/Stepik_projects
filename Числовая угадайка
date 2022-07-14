@@ -17,7 +17,7 @@ while mark != True:
     n = input()
     if zaschita(n) == False:
         print('А может быть все-таки введем целое число от 1 до 100?')
-        break
+        continue
     else:
         n = int(n)
     if n < num:
