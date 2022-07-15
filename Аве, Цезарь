@@ -1,0 +1,39 @@
+# создаем необходимые списки
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+symbol = [" ", ",", ".", "!", "?"]
+moch = 26
+
+# добавляем input с разбитием на список
+stroka = input()
+spisok = stroka.split()
+
+# объявляем функцию считающую кол-во букв в слове
+def dlina_slova(slovo):
+    dlina = 0
+    for i in range(len(slovo)):
+        if slovo[i].isalpha() == True:
+            dlina += 1    
+    return dlina
+
+# задаем цикл по элементам списка             
+for j in spisok:
+    step = dlina_slova(j)            
+    def shifr(step, j):
+        for k in range(len(j)):
+            if j[k].isalpha():
+                if j[k] == j[k].upper():
+                    for n in range(moch):
+                        if j[k] == eng_upper_alphabet[n]:
+                            print(eng_upper_alphabet[(n + step) % moch], sep = "_", end = '')
+                            break
+                elif j[k] == j[k].lower():
+                    for n in range(moch):
+                        if j[k] == eng_lower_alphabet[n]:
+                            print(eng_lower_alphabet[(n + step) % moch], sep = "_", end = '')
+                            break
+            else:
+                print(j[k], end = '', sep = "_")   
+        print(" ", end = '')
+    shifr(step, j)
+print(" ")
