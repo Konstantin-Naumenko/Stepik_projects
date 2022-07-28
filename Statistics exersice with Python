@@ -1,0 +1,67 @@
+from google.colab import files
+data = files.upload()
+
+import pandas as pd
+df = pd.read_csv("states.csv")
+df.head()
+df.describe()
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.scatterplot(x = df["hs_grad"], y = df['poverty'])
+plt.xlabel("Образование (%)")
+plt.ylabel("Бедность (%)")
+
+print(df["hs_grad"]. corr(df['poverty']))
+r = df["poverty"]. corr(df['hs_grad'])
+R2 = r**2
+print(R2)
+
+import statsmodels.formula.api as smf
+m1 = smf.ols('poverty ~ hs_grad', 
+             data=df)
+fitted = m1.fit()
+print(fitted.summary())
+
+import numpy as np
+X = df['hs_grad']
+Y = df['poverty']
+intercept, slope = smf.ols(formula="poverty ~ hs_grad", data = df).fit().params
+
+residuals = Y - intercept - slope*X
+x1 = np.linspace(min(X),max(X),len(X))
+
+import statsmodels.api as sma
+fig, (ax1,ax2) = plt.subplots(nrows=2, ncols=1, figsize=(6, 9))
+# scatter plot
+ax1.scatter(X,residuals)
+ax1.plot(x1,[0]*len(x1),'--r')
+# Q-Q plot
+sma.qqplot(residuals, line='s', ax = ax2)
+
+ax1.grid()
+ax1.set_title('Анализ остатков')
+ax1.set_xlabel('Среднее образование (%)')
+ax1.set_ylabel('Остатки')
+ax1.set_xticks(np.arange(76,93, step=4))
+ax1.set_yticks(np.arange(-5,6, step=2.5))
+
+ax2.set_title('QQ-Plot')
+
+fig.tight_layout(pad=3.0)
+plt.show()
+
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(xs = df['white'], ys = df['poverty'], zs = df['hs_grad'])
+
+ax.set_xlabel('White(%)')
+ax.set_ylabel('Poverty(%)')
+ax.set_zlabel('Higher education(%)')
+
+plt.show() 
+
+result = smf.ols(formula = "poverty ~ metro_res + white + hs_grad + female_house", data = df).fit()
+print(result.summary())
